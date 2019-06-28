@@ -10,6 +10,7 @@ from django.db.models import Max, Min, Count
 from operator import itemgetter
 
 
+
 def get_yandex_address_obj(input_address):
     url = 'https://geocode-maps.yandex.ru/1.x/?apikey=5fddde38-1c3f-46b9-9a54-ae30942798e3&format=json&geocode='
 
@@ -47,6 +48,7 @@ def get_order_output_details(order):
 
     status = map_status(order)
     manager = get_manager(order)
+    order_late = (datetime.datetime.now()-order.date_from).days
 
     return [order.id,
             order.customer_legal_entity.organization_name,
@@ -56,7 +58,9 @@ def get_order_output_details(order):
             float(order.price) * 0.9,
             float(order.price) * 0.9 * 0.8,
             status,
-            manager
+            manager,
+            order.date_from,
+            order_late
             ]
 
 

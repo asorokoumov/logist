@@ -1,16 +1,27 @@
 <!doctype html>
 <html lang="en">
   <head>
+{% load i18n %}
+{% load l10n %}
+    {% load humanize %}
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+   <!--   <style>
+      .red {
+        background-color: #FA8072 !important;
+      }
 
+
+    </style>-->
     <title>Hello, world!</title>
   </head>
-  <body style="font-size: 0.8rem;">
+  <body>
 
 
   <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -27,19 +38,27 @@
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade show active" id="voitik" role="tabpanel" aria-labelledby="home-tab">
 
-    <table class="table table-hover  table-sm">
-  <thead  class="thead-dark">
+
+    <table id="example" class="display compact" style="width:100%">
+        <thead  class="thead-dark">
+
+              <tr>
+          <th rowspan="2">Заказ</th>
+          <th rowspan="2">Дата вывоза</th>
+          <th rowspan="2">Просрочка</th>
+          <th rowspan="2">Клиент</th>
+          <th rowspan="2">Откуда</th>
+          <th rowspan="2">Куда</th>
+                <th colspan="3">Цена</th>
+          <th rowspan="2">Статус</th>
+          <th rowspan="2"></th>
+
+            </tr>
     <tr>
-      <th scope="col">Менеджер</th>
-      <th scope="col">Заказ</th>
-      <th scope="col">Клиент</th>
-      <th scope="col">Откуда</th>
-      <th scope="col">Куда</th>
-      <th scope="col">Цена клиента</th>
+
+      <th scope="col">Клиента</th>
       <th scope="col">с НДС</th>
       <th scope="col">без НДС</th>
-      <th scope="col">Статус</th>
-      <th scope="col"></th>
 
     </tr>
   </thead>
@@ -47,14 +66,15 @@
       {% for order in orders %}
          {% if order.8 == "Войтик" %}
         <tr>
-          <th>{{order.8}}</th>
-          <th><a href="https://trucker.group/orders/{{order.0}}">{{order.0}}</a></th>
+          <th><a href="https://trucker.group/lite/#/orders/{{order.0}}">{{order.0}}</a></th>
+          <th>{{order.9|date:'M d'}}</th>
+          <th>{{order.10}}</th>
           <td>{{order.1}}</td>
           <td>{{order.2}}</td>
           <td>{{order.3}}</td>
-          <td>{{order.4|floatformat}}</td>
-          <td>{{order.5|floatformat}}</td>
-          <td>{{order.6|floatformat}}</td>
+          <td>{{order.4|floatformat:0|intcomma}}</td>
+          <td>{{order.5|floatformat:0|intcomma}}</td>
+          <td>{{order.6|floatformat:0|intcomma}}</td>
           {% if order.7 == 4 %}
             <td><span class="badge badge-danger">Просрочен</span></td>
           {% endif %}
@@ -72,7 +92,8 @@
        {% endif %}
       {% endfor %}
   </tbody>
-</table>
+    </table>
+
 
 
   </div>
@@ -84,15 +105,28 @@
 
 
 
-    --
-
-<br/>
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script>
+     $(document).ready(function() {
+          $('#example').DataTable( {
+            "createdRow": function( row, data, dataIndex){
+                  if(data[2] ==  "10"){
+                    $(row).addClass('red');
+                  }
+              },
+
+
+              "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+          } );
+
+
+      } );
+    </script>
   </body>
 </html>
