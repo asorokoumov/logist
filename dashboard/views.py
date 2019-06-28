@@ -44,36 +44,9 @@ def get_yandex_address_obj(input_address):
 
 
 def get_order_output_details(order):
-    manager = 'Unknown'
-    status = 'Unknown'
-    if order.status == 4:
-        # status = u'Ожидание исполнителя'
-        status = order.status
-    elif order.status == 9:
-        # status = u'Не состоялся'
-        status = order.status
 
-    elif order.status == 6:
-        if not Bids.objects.filter(order=order.id):
-            # status = u'Новый'
-            status = 60
-        else:
-            # status =  u'Подбор'
-            status = 61
-
-    if order.customer_legal_entity.id in [3021, 3072, 2980]:
-        manager = 'Voytik'
-    if order.customer_legal_entity in [309]:
-        manager = 'Trubicin'
-    if order.customer_legal_entity in [579, 2798]:
-        manager = 'Sudakov'
-    if order.customer_legal_entity in [759]:
-        manager = 'Ivaeva'
-
-    if order.customer_legal_entity.id == 117:
-        manager = 'Voytik'
-
-
+    status = map_status(order)
+    manager = get_manager(order)
 
     return [order.id,
             order.customer_legal_entity.organization_name,
@@ -132,3 +105,32 @@ def carriers(request, order_id):
 
     return render(request, 'dashboard/carriers.html', {'carriers': sorted(carriers_output, key=itemgetter(1), reverse=True),
                                                        'order': get_order_output_details(order)})
+
+
+def get_manager(order):
+    manager = 'Unknown'
+
+    if order.customer_legal_entity.id in [3021, 3072, 2980, 470]:
+        manager = 'Войтик'
+    elif order.sender_region_id in [37, 56, 29, 70, 59, 44, 34, 64, 65, 79, 46, 69, 62, 52, 54, 39, 63]:
+        manager = 'Войтик'
+
+    return manager
+
+def map_status(order):
+    status = 'Unknown'
+    if order.status == 4:
+        # status = u'Ожидание исполнителя'
+        status = order.status
+    elif order.status == 9:
+        # status = u'Не состоялся'
+        status = order.status
+
+    elif order.status == 6:
+        if not Bids.objects.filter(order=order.id):
+            # status = u'Новый'
+            status = 60
+        else:
+            # status =  u'Подбор'
+            status = 61
+    return status
