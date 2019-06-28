@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body style="font-size: 0.8rem;">
+
+
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#voitik" role="tab" aria-controls="voitik" aria-selected="true">Войтик</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Судакова</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="voitik" role="tabpanel" aria-labelledby="home-tab">
+
+    <table class="table table-hover  table-sm">
+  <thead  class="thead-dark">
+    <tr>
+      <th scope="col">Менеджер</th>
+      <th scope="col">Заказ</th>
+      <th scope="col">Клиент</th>
+      <th scope="col">Откуда</th>
+      <th scope="col">Куда</th>
+      <th scope="col">Цена клиента</th>
+      <th scope="col">с НДС</th>
+      <th scope="col">без НДС</th>
+      <th scope="col">Статус</th>
+      <th scope="col"></th>
+
+    </tr>
+  </thead>
+  <tbody>
+      {% for order in orders %}
+         {% if order.8 == "Voytik" %}
+        <tr>
+          <th>{{order.8}}</th>
+          <th><a href="https://trucker.group/orders/{{order.0}}">{{order.0}}</a></th>
+          <td>{{order.1}}</td>
+          <td>{{order.2}}</td>
+          <td>{{order.3}}</td>
+          <td>{{order.4|floatformat}}</td>
+          <td>{{order.5|floatformat}}</td>
+          <td>{{order.6|floatformat}}</td>
+          {% if order.7 == 4 %}
+            <td><span class="badge badge-danger">Просрочен</span></td>
+          {% endif %}
+          {% if order.7 == 9 %}
+            <td><span class="badge badge-danger">Не состоялся</span></td>
+          {% endif %}
+          {% if order.7 == 60 %}
+            <td>  <span class="badge badge-success">Новый</span></td>
+          {% endif %}
+          {% if order.7 == 61 %}
+            <td><span class="badge badge-success">Есть отклики</span></td>
+          {% endif %}
+         <td scope="col"><a href="{% url 'carriers' order_id=order.0 %}">Подобрать</a> </td>
+        </tr>
+       {% endif %}
+      {% endfor %}
+  </tbody>
+</table>
+
+
+  </div>
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+</div>
+
+
+
+
+
+    --
+
+<br/>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
