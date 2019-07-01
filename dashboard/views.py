@@ -48,26 +48,40 @@ def get_order_output_details(order):
 
     status = map_status(order)
     manager = get_manager(order)
-    order_late = (datetime.datetime.now()-order.date_from).days
+    order_late = datetime.datetime.now().day-order.date_from.day
+    if order.sender_locality_name:
+        sender_city = order.sender_locality_name
+    else:
+        sender_city = order.sender_dependent_locality_name
 
+    if order.recipient_locality_name:
+        recipient_city = order.recipient_locality_name
+    else:
+        recipient_city = order.recipient_dependent_locality_name
+
+    if order.distance != 0:
+        rate = float(order.price) * 0.9 / 1.2 / order.distance
+    else:
+        rate = -1
     return [order.id,
             order.customer_legal_entity.organization_name,
-            order.sender_locality_name,
-            order.recipient_locality_name,
+            sender_city,
+            recipient_city,
             order.price,
             float(order.price) * 0.9,
-            float(order.price) * 0.9 * 0.8,
+            float(order.price) * 0.9 / 1.2,
             status,
             manager,
             order.date_from,
-            order_late
+            order_late,
+            rate
             ]
 
 
 # Create your views here.
 def index(request):
     objects = Orders.objects.filter(cargo_kind__in=['metal', 'other'], created_at__gte=datetime.date(2019, 6, 17),
-                                    status__in=[4, 6, 9])
+                                    status__in=[4, 6])
     orders_output = []
     for object in objects:
         orders_output.append(get_order_output_details(object))
