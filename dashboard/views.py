@@ -8,6 +8,7 @@ import requests
 import json
 from django.db.models import Max, Min, Count
 from operator import itemgetter
+from datetime import date
 
 
 
@@ -48,7 +49,8 @@ def get_order_output_details(order):
 
     status = map_status(order)
     manager = get_manager(order)
-    order_late = datetime.datetime.now().day-order.date_from.day
+
+    order_late = (datetime.datetime.now().date()-order.date_from.date()).days
     if order.sender_locality_name:
         sender_city = order.sender_locality_name
     else:
