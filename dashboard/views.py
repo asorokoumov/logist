@@ -133,6 +133,27 @@ def get_manager(order):
     elif order.sender_region_id in [37, 56, 29, 70, 59, 44, 34, 64, 65, 79, 46, 69, 62, 52, 54, 39, 63]:
         manager = 'Войтик'
 
+    elif order.customer_legal_entity.id in [579, 2798]:
+        manager = 'Судаков'
+    elif order.sender_region_id in [4, 27, 80, 15, 58, 16, 68, 42, 47, 21, 31, 8]:
+        manager = 'Судаков'
+
+    elif order.customer_legal_entity.id in [759]:
+        manager = 'Иваева'
+    elif order.sender_region_id in [12, 5, 2, 18, 13, 9, 57, 26, 53]:
+        manager = 'Иваева'
+
+    elif order.customer_legal_entity.id in [309]:
+        manager = 'Трубицин'
+    elif order.sender_region_id in [166]:
+        manager = 'Трубицин'
+
+    elif order.sender_region_id in [19,17,32,20,41,35,49,75,81,74,76,50,43,77,78,33,55,51,71,66,67,24]:
+        manager = 'Говоров'
+
+    elif order.sender_region_id in [60,73,48,36,28,30,23,38,14,25,3,45,1,11,72,45]:
+        manager = 'Борзова'
+
     return manager
 
 def map_status(order):
