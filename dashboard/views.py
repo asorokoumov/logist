@@ -60,9 +60,13 @@ def get_order_output_details(order):
         recipient_city = order.recipient_dependent_locality_name
 
     if order.distance != 0:
-        rate = float(order.price) * 0.9 / 1.2 / order.distance
+        rate_without_nds = float(order.price) * 0.9 / 1.2 / order.distance
+        rate_with_nds = float(order.price) * 0.9 / order.distance
     else:
-        rate = -1
+        rate_without_nds = -1
+        rate_with_nds = -1
+
+
     return [order.id,
             order.customer_legal_entity.organization_name,
             sender_city,
@@ -74,7 +78,8 @@ def get_order_output_details(order):
             manager,
             order.date_from,
             order_late,
-            rate
+            rate_without_nds,
+            rate_with_nds
             ]
 
 
