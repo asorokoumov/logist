@@ -53,7 +53,6 @@
           <th rowspan="2">Куда</th>
                 <th colspan="2">Цена</th>
                 <th rowspan="2">Руб/км <br/>(без НДС)</th>
-          <th rowspan="2">Статус</th>
           <th rowspan="2"></th>
 
             </tr>
@@ -70,25 +69,24 @@
                   <tr>
                      <th><a href="https://trucker.group/lite/#/orders/{{order.0}}">{{order.0}}</a></th>
                      <th>{{order.9|date:'M d'}}</th>
-                     <th>{{order.10}}</th>
-                     <td>{{order.1}}</td>
+                        {% if order.10 < 0 %}
+                              <th><span class="badge badge-success">{{order.10}}</span></th>
+                         {% endif %}
+                        {% if order.10 == 0 %}
+                              <th><span class="badge badge-warning">{{order.10}}</span></th>
+                         {% endif %}
+                        {% if order.10 >= 1 %}
+                              <th><span class="badge badge-danger">{{order.10}}</span></th>
+                         {% endif %}
+
+
+                      <td>{{order.1}}</td>
                      <td>{{order.2}}</td>
                      <td>{{order.3}}</td>
                       <td>{{order.5|floatformat:0|intcomma}}</td>
                       <td>{{order.6|floatformat:0|intcomma}}</td>
                       <td>{{order.11|floatformat:0|intcomma}}</td>
-                     {% if order.7 == 4 %}
-                     <td><span class="badge badge-danger">Просрочен</span></td>
-                     {% endif %}
-                     {% if order.7 == 9 %}
-                     <td><span class="badge badge-danger">Не состоялся</span></td>
-                     {% endif %}
-                     {% if order.7 == 60 %}
-                     <td>  <span class="badge badge-success">Новый</span></td>
-                     {% endif %}
-                     {% if order.7 == 61 %}
-                     <td><span class="badge badge-success">Есть отклики</span></td>
-                     {% endif %}
+
                      <td scope="col"><a href="{% url 'carriers' order_id=order.0 %}">Подобрать</a> </td>
                   </tr>
                   {% endif %}
@@ -108,7 +106,6 @@
           <th rowspan="2">Куда</th>
                 <th colspan="2">Цена</th>
                 <th rowspan="2">Руб/км <br/>(без НДС)</th>
-          <th rowspan="2">Статус</th>
           <th rowspan="2"></th>
 
             </tr>
@@ -122,28 +119,27 @@
                <tbody>
                   {% for order in orders %}
                   {% if order.8 == "Судаков" %}
-                  <tr>
+                    <tr>
                      <th><a href="https://trucker.group/lite/#/orders/{{order.0}}">{{order.0}}</a></th>
                      <th>{{order.9|date:'M d'}}</th>
-                     <th>{{order.10}}</th>
-                     <td>{{order.1}}</td>
+                        {% if order.10 < 0 %}
+                              <th><span class="badge badge-success">{{order.10}}</span></th>
+                         {% endif %}
+                        {% if order.10 == 0 %}
+                              <th><span class="badge badge-warning">{{order.10}}</span></th>
+                         {% endif %}
+                        {% if order.10 >= 1 %}
+                              <th><span class="badge badge-danger">{{order.10}}</span></th>
+                         {% endif %}
+
+
+                      <td>{{order.1}}</td>
                      <td>{{order.2}}</td>
                      <td>{{order.3}}</td>
                       <td>{{order.5|floatformat:0|intcomma}}</td>
                       <td>{{order.6|floatformat:0|intcomma}}</td>
                       <td>{{order.11|floatformat:0|intcomma}}</td>
-                     {% if order.7 == 4 %}
-                     <td><span class="badge badge-danger">Просрочен</span></td>
-                     {% endif %}
-                     {% if order.7 == 9 %}
-                     <td><span class="badge badge-danger">Не состоялся</span></td>
-                     {% endif %}
-                     {% if order.7 == 60 %}
-                     <td>  <span class="badge badge-success">Новый</span></td>
-                     {% endif %}
-                     {% if order.7 == 61 %}
-                     <td><span class="badge badge-success">Есть отклики</span></td>
-                     {% endif %}
+
                      <td scope="col"><a href="{% url 'carriers' order_id=order.0 %}">Подобрать</a> </td>
                   </tr>
                   {% endif %}
@@ -165,7 +161,6 @@
           <th rowspan="2">Куда</th>
                 <th colspan="2">Цена</th>
                 <th rowspan="2">Руб/км <br/>(без НДС)</th>
-          <th rowspan="2">Статус</th>
           <th rowspan="2"></th>
 
             </tr>
@@ -179,28 +174,27 @@
                <tbody>
                   {% for order in orders %}
                   {% if order.8 == "Иваева" %}
-                  <tr>
+                 <tr>
                      <th><a href="https://trucker.group/lite/#/orders/{{order.0}}">{{order.0}}</a></th>
                      <th>{{order.9|date:'M d'}}</th>
-                     <th>{{order.10}}</th>
-                     <td>{{order.1}}</td>
+                        {% if order.10 < 0 %}
+                              <th><span class="badge badge-success">{{order.10}}</span></th>
+                         {% endif %}
+                        {% if order.10 == 0 %}
+                              <th><span class="badge badge-warning">{{order.10}}</span></th>
+                         {% endif %}
+                        {% if order.10 >= 1 %}
+                              <th><span class="badge badge-danger">{{order.10}}</span></th>
+                         {% endif %}
+
+
+                      <td>{{order.1}}</td>
                      <td>{{order.2}}</td>
                      <td>{{order.3}}</td>
                       <td>{{order.5|floatformat:0|intcomma}}</td>
                       <td>{{order.6|floatformat:0|intcomma}}</td>
                       <td>{{order.11|floatformat:0|intcomma}}</td>
-                     {% if order.7 == 4 %}
-                     <td><span class="badge badge-danger">Просрочен</span></td>
-                     {% endif %}
-                     {% if order.7 == 9 %}
-                     <td><span class="badge badge-danger">Не состоялся</span></td>
-                     {% endif %}
-                     {% if order.7 == 60 %}
-                     <td>  <span class="badge badge-success">Новый</span></td>
-                     {% endif %}
-                     {% if order.7 == 61 %}
-                     <td><span class="badge badge-success">Есть отклики</span></td>
-                     {% endif %}
+
                      <td scope="col"><a href="{% url 'carriers' order_id=order.0 %}">Подобрать</a> </td>
                   </tr>
                   {% endif %}
@@ -222,7 +216,6 @@
           <th rowspan="2">Куда</th>
                 <th colspan="2">Цена</th>
                 <th rowspan="2">Руб/км <br/>(без НДС)</th>
-          <th rowspan="2">Статус</th>
           <th rowspan="2"></th>
 
             </tr>
@@ -236,28 +229,27 @@
                <tbody>
                   {% for order in orders %}
                   {% if order.8 == "Трубицин" %}
-                  <tr>
+                 <tr>
                      <th><a href="https://trucker.group/lite/#/orders/{{order.0}}">{{order.0}}</a></th>
-                    <th>{{order.9|date:'M d'}}</th>
-                     <th>{{order.10}}</th>
-                     <td>{{order.1}}</td>
+                     <th>{{order.9|date:'M d'}}</th>
+                        {% if order.10 < 0 %}
+                              <th><span class="badge badge-success">{{order.10}}</span></th>
+                         {% endif %}
+                        {% if order.10 == 0 %}
+                              <th><span class="badge badge-warning">{{order.10}}</span></th>
+                         {% endif %}
+                        {% if order.10 >= 1 %}
+                              <th><span class="badge badge-danger">{{order.10}}</span></th>
+                         {% endif %}
+
+
+                      <td>{{order.1}}</td>
                      <td>{{order.2}}</td>
                      <td>{{order.3}}</td>
                       <td>{{order.5|floatformat:0|intcomma}}</td>
                       <td>{{order.6|floatformat:0|intcomma}}</td>
                       <td>{{order.11|floatformat:0|intcomma}}</td>
-                     {% if order.7 == 4 %}
-                     <td><span class="badge badge-danger">Просрочен</span></td>
-                     {% endif %}
-                     {% if order.7 == 9 %}
-                     <td><span class="badge badge-danger">Не состоялся</span></td>
-                     {% endif %}
-                     {% if order.7 == 60 %}
-                     <td>  <span class="badge badge-success">Новый</span></td>
-                     {% endif %}
-                     {% if order.7 == 61 %}
-                     <td><span class="badge badge-success">Есть отклики</span></td>
-                     {% endif %}
+
                      <td scope="col"><a href="{% url 'carriers' order_id=order.0 %}">Подобрать</a> </td>
                   </tr>
                   {% endif %}
@@ -279,7 +271,6 @@
           <th rowspan="2">Куда</th>
                 <th colspan="2">Цена</th>
                 <th rowspan="2">Руб/км <br/>(без НДС)</th>
-          <th rowspan="2">Статус</th>
           <th rowspan="2"></th>
 
             </tr>
@@ -296,25 +287,24 @@
                   <tr>
                      <th><a href="https://trucker.group/lite/#/orders/{{order.0}}">{{order.0}}</a></th>
                      <th>{{order.9|date:'M d'}}</th>
-                     <th>{{order.10}}</th>
-                     <td>{{order.1}}</td>
+                        {% if order.10 < 0 %}
+                              <th><span class="badge badge-success">{{order.10}}</span></th>
+                         {% endif %}
+                        {% if order.10 == 0 %}
+                              <th><span class="badge badge-warning">{{order.10}}</span></th>
+                         {% endif %}
+                        {% if order.10 >= 1 %}
+                              <th><span class="badge badge-danger">{{order.10}}</span></th>
+                         {% endif %}
+
+
+                      <td>{{order.1}}</td>
                      <td>{{order.2}}</td>
                      <td>{{order.3}}</td>
                       <td>{{order.5|floatformat:0|intcomma}}</td>
                       <td>{{order.6|floatformat:0|intcomma}}</td>
                       <td>{{order.11|floatformat:0|intcomma}}</td>
-                     {% if order.7 == 4 %}
-                     <td><span class="badge badge-danger">Просрочен</span></td>
-                     {% endif %}
-                     {% if order.7 == 9 %}
-                     <td><span class="badge badge-danger">Не состоялся</span></td>
-                     {% endif %}
-                     {% if order.7 == 60 %}
-                     <td>  <span class="badge badge-success">Новый</span></td>
-                     {% endif %}
-                     {% if order.7 == 61 %}
-                     <td><span class="badge badge-success">Есть отклики</span></td>
-                     {% endif %}
+
                      <td scope="col"><a href="{% url 'carriers' order_id=order.0 %}">Подобрать</a> </td>
                   </tr>
                   {% endif %}
@@ -336,7 +326,6 @@
           <th rowspan="2">Куда</th>
                 <th colspan="2">Цена</th>
                 <th rowspan="2">Руб/км <br/>(без НДС)</th>
-          <th rowspan="2">Статус</th>
           <th rowspan="2"></th>
 
             </tr>
@@ -353,25 +342,24 @@
                   <tr>
                      <th><a href="https://trucker.group/lite/#/orders/{{order.0}}">{{order.0}}</a></th>
                      <th>{{order.9|date:'M d'}}</th>
-                     <th>{{order.10}}</th>
-                     <td>{{order.1}}</td>
+                        {% if order.10 < 0 %}
+                              <th><span class="badge badge-success">{{order.10}}</span></th>
+                         {% endif %}
+                        {% if order.10 == 0 %}
+                              <th><span class="badge badge-warning">{{order.10}}</span></th>
+                         {% endif %}
+                        {% if order.10 >= 1 %}
+                              <th><span class="badge badge-danger">{{order.10}}</span></th>
+                         {% endif %}
+
+
+                      <td>{{order.1}}</td>
                      <td>{{order.2}}</td>
                      <td>{{order.3}}</td>
                       <td>{{order.5|floatformat:0|intcomma}}</td>
                       <td>{{order.6|floatformat:0|intcomma}}</td>
                       <td>{{order.11|floatformat:0|intcomma}}</td>
-                     {% if order.7 == 4 %}
-                     <td><span class="badge badge-danger">Просрочен</span></td>
-                     {% endif %}
-                     {% if order.7 == 9 %}
-                     <td><span class="badge badge-danger">Не состоялся</span></td>
-                     {% endif %}
-                     {% if order.7 == 60 %}
-                     <td>  <span class="badge badge-success">Новый</span></td>
-                     {% endif %}
-                     {% if order.7 == 61 %}
-                     <td><span class="badge badge-success">Есть отклики</span></td>
-                     {% endif %}
+
                      <td scope="col"><a href="{% url 'carriers' order_id=order.0 %}">Подобрать</a> </td>
                   </tr>
                   {% endif %}
