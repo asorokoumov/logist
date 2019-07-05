@@ -43,10 +43,10 @@
   <thead  class="thead-dark">
     <tr>
       <th scope="col">Перевозчик</th>
+      <th scope="col">Контакт</th>
+      <th scope="col">Телефон</th>
       <th scope="col">Количество поездок</th>
-      <th scope="col">Минимальная ставка</th>
-      <th scope="col">Заказ</th>
-      <th scope="col">Дата</th>
+      <th scope="col">Последняя поездка</th>
 
 
 
@@ -56,15 +56,10 @@
       {% for carrier in carriers %}
 
         <tr>
-          <td>{{carrier.0.organization_name}}</td>
+          <td><a href="https://trucker.group/companies/{{carrier.0.organization_name}}">{{carrier.0.organization_name}}</a> </td>
+          <td>{{carrier.6.full_name}}</td>
+          <td>{{carrier.6.phone}}</td>
           <td>{{carrier.1}}</td>
-           {% if carrier.5 == -1 %}
-              <td>{{carrier.2|floatformat}} (без НДС)</td>
-          {% endif %}
-           {% if carrier.5 == 20 %}
-              <td>{{carrier.2|floatformat}} (с НДС 20%)</td>
-          {% endif %}
-          <td><a href="https://trucker.group/orders/{{order.0}}">{{carrier.3}}</a></td>
           <td>{{carrier.4|date:"d-m-Y"}}</td>
 
 

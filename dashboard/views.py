@@ -2,7 +2,7 @@
 
 from django.shortcuts import render
 
-from dashboard.models import Orders, LegalEntities, Bids, Runs
+from dashboard.models import Orders, LegalEntities, Bids, Runs, Users
 import datetime
 import requests
 import json
@@ -117,14 +117,15 @@ def carriers(request, order_id):
 
         count = runs.filter(executor_legal_entity=bid_by_carrier['executor_legal_entity_id']).count()
 
-
+        admin = Users.objects.filter(company_id=carrier.company_id, roles__icontains='company_admin').first()
 
         carriers_output.append([carrier,
                                 count,
                                 bid_by_carrier['min_price'],
                                 min_bid.order.id,
                                 min_bid.created_at,
-                                min_bid.vat_rate
+                                min_bid.vat_rate,
+                                admin
                                 ])
 
 

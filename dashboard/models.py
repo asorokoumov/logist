@@ -162,3 +162,56 @@ class Runs(models.Model):
     class Meta:
         managed = False
         db_table = 'runs'
+
+class Users(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    email = models.CharField(unique=True, max_length=100)
+    encrypted_password = models.CharField(max_length=100)
+    reset_password_token = models.CharField(unique=True, max_length=100, blank=True, null=True)
+    reset_password_sent_at = models.DateTimeField(blank=True, null=True)
+    remember_created_at = models.DateTimeField(blank=True, null=True)
+    sign_in_count = models.IntegerField()
+    current_sign_in_at = models.DateTimeField(blank=True, null=True)
+    last_sign_in_at = models.DateTimeField(blank=True, null=True)
+    current_sign_in_ip = models.GenericIPAddressField(blank=True, null=True)
+    last_sign_in_ip = models.GenericIPAddressField(blank=True, null=True)
+    created_at = models.DateTimeField()
+    updated_at = models.DateTimeField()
+    full_name = models.CharField(max_length=100, blank=True, null=True)
+    confirmation_token = models.CharField(unique=True, max_length=100, blank=True, null=True)
+    confirmed_at = models.DateTimeField(blank=True, null=True)
+    confirmation_sent_at = models.DateTimeField(blank=True, null=True)
+    unconfirmed_email = models.CharField(max_length=100, blank=True, null=True)
+    phone = models.CharField(max_length=100, blank=True, null=True)
+    default_vehicle_id = models.IntegerField(blank=True, null=True)
+    current_run_id = models.IntegerField(blank=True, null=True)
+    passport_info = models.CharField(max_length=100, blank=True, null=True)
+    passport_photo = models.CharField(max_length=100, blank=True, null=True)
+    last_notify_time = models.DateTimeField(blank=True, null=True)
+    status = models.IntegerField()
+    promo_code = models.CharField(max_length=100, blank=True, null=True)
+    failed_attempts = models.IntegerField()
+    locked_at = models.DateTimeField(blank=True, null=True)
+    phone_pin = models.IntegerField(blank=True, null=True)
+    email_notice = models.BooleanField(blank=True, null=True)
+    push_notice = models.BooleanField(blank=True, null=True)
+    sms_notice = models.BooleanField(blank=True, null=True)
+    websocket_notice = models.BooleanField(blank=True, null=True)
+    guid_1c = models.CharField(max_length=100, blank=True, null=True)
+    hide_other_regions = models.BooleanField(blank=True, null=True)
+    notifications_settings = models.TextField(blank=True, null=True)  # This field type is a guess.
+    roles = models.TextField(blank=True, null=True)  # This field type is a guess.
+    company_id = models.IntegerField(blank=True, null=True)
+    passport_series = models.CharField(max_length=100, blank=True, null=True)
+    passport_number = models.CharField(max_length=100, blank=True, null=True)
+    passport_date_of_issue = models.DateField(blank=True, null=True)
+    passport_issued_by = models.CharField(max_length=100, blank=True, null=True)
+    last_login_version = models.TextField(blank=True, null=True)  # This field type is a guess.
+    default_legal_entity = models.ForeignKey('LegalEntities', models.DO_NOTHING, blank=True, null=True)
+    recive_notifications_from_all_orders = models.BooleanField()
+    free_at = models.DateTimeField(blank=True, null=True)
+    vesava_check = models.BooleanField()
+
+    class Meta:
+        managed = False
+        db_table = 'users'
