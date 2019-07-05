@@ -98,11 +98,11 @@ def index(request):
 
 def carriers(request, order_id):
     order = Orders.objects.get(id=order_id)
-    similar_orders = Orders.objects.filter(sender_name=order.sender_name, recipient_name=order.recipient_name,
+    similar_orders = Orders.objects.filter(sender_region_id=order.sender_region_id,
+                                           recipient_region_id=order.recipient_region_id,
                                            created_at__gte=datetime.date(2019, 1, 1))
 
     runs = Runs.objects.filter(order__in=similar_orders)
-
 
     bids = Bids.objects.filter(order__in=similar_orders)
 
@@ -137,29 +137,31 @@ def get_manager(order):
 
     if order.customer_legal_entity.id in [3021, 3072, 2980, 470]:
         manager = 'Войтик'
-    elif order.sender_region_id in [37, 56, 29, 70, 59, 44, 34, 64, 65, 79, 46, 69, 62, 52, 54, 39, 63]:
-        manager = 'Войтик'
-
     elif order.customer_legal_entity.id in [579, 2798]:
-        manager = 'Судаков'
-    elif order.sender_region_id in [4, 27, 80, 15, 58, 16, 68, 42, 47, 21, 31, 8]:
         manager = 'Судаков'
 
     elif order.customer_legal_entity.id in [759]:
         manager = 'Иваева'
-    elif order.sender_region_id in [12, 5, 2, 18, 13, 9, 57, 26, 53]:
-        manager = 'Иваева'
 
     elif order.customer_legal_entity.id in [309]:
         manager = 'Трубицин'
-    elif order.sender_region_id in [166]:
-        manager = 'Трубицин'
+
 
     elif order.sender_region_id in [19,17,32,20,41,35,49,75,81,74,76,50,43,77,78,33,55,51,71,66,67,24]:
         manager = 'Говоров'
-
     elif order.sender_region_id in [60,73,48,36,28,30,23,38,14,25,3,45,1,11,72,45]:
         manager = 'Борзова'
+    elif order.sender_region_id in [37, 56, 29, 70, 59, 44, 34, 64, 65, 79, 46, 69, 62, 52, 54, 39, 63]:
+        manager = 'Войтик'
+    elif order.sender_region_id in [4, 27, 80, 15, 58, 16, 68, 42, 47, 21, 31, 8]:
+        manager = 'Судаков'
+    elif order.sender_region_id in [12, 5, 2, 18, 13, 9, 57, 26, 53]:
+        manager = 'Иваева'
+    elif order.sender_region_id in [166]:
+        manager = 'Трубицин'
+
+
+
 
     return manager
 
