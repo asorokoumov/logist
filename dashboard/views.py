@@ -81,7 +81,8 @@ def get_order_output_details(order):
             order.date_from,
             order_late,
             rate_without_nds,
-            rate_with_nds
+            rate_with_nds,
+            order.distance
             ]
 
 
