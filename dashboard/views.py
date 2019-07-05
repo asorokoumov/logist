@@ -99,7 +99,6 @@ def index(request):
 def carriers(request, order_id):
     order = Orders.objects.get(id=order_id)
     similar_orders = Orders.objects.filter(sender_region_id=order.sender_region_id,
-                                           recipient_region_id=order.recipient_region_id,
                                            created_at__gte=datetime.date(2019, 1, 1),
                                            cargo_kind__in = ['metal', 'other'])
 
