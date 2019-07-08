@@ -69,6 +69,8 @@ def get_order_output_details(order):
         rate_with_nds = -1
 
 
+
+
     return [order.id,
             order.customer_legal_entity.organization_name,
             sender_city,
@@ -82,7 +84,8 @@ def get_order_output_details(order):
             order_late,
             rate_without_nds,
             rate_with_nds,
-            order.distance
+            order.distance,
+            order.cargo_weight
             ]
 
 
