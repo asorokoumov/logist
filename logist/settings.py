@@ -81,14 +81,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
 
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'trucker_prod',
-        'USER': 'cube',
-        'PASSWORD': 'JKl2RrG63Q3Clm37',
-        'HOST': '95.181.205.74',
-        'PORT': '11232',
-    },
+    
 }
 
 
