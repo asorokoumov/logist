@@ -1,14 +1,14 @@
 class DashboardRouter(object):
     def db_for_read(self, model, **hints):
-        "Point all operations on dashboard models to 'trucker'"
+        "Point all operations on dashboard models to 'default'"
         if model._meta.app_label == 'dashboard':
-            return 'trucker'
+            return 'default'
         return 'default'
 
     def db_for_write(self, model, **hints):
-        "Point all operations on dashboard models to 'trucker'"
+        "Point all operations on dashboard models to 'default'"
         if model._meta.app_label == 'dashboard':
-            return 'trucker'
+            return 'default'
         return 'default'
 
     def allow_relation(self, obj1, obj2, **hints):
@@ -21,7 +21,7 @@ class DashboardRouter(object):
         return False
 
     def allow_syncdb(self, db, model):
-        if db == 'trucker' or model._meta.app_label == "dashboard":
+        if db == 'default' or model._meta.app_label == "dashboard":
             return False  # we're not using syncdb on our legacy database
         else:  # but all other models/databases are fine
             return True
