@@ -7,6 +7,14 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
+
+class Comments(models.Model):
+    order_id = models.IntegerField()
+    text = models.TextField(blank=True, null=True, default='')
+
+    class Meta:
+        app_label = 'dashboard'
+
 class Bids(models.Model):
     id = models.BigAutoField(primary_key=True)
     executor_id = models.IntegerField(blank=True, null=True)
@@ -24,6 +32,7 @@ class Bids(models.Model):
     class Meta:
         managed = False
         db_table = 'bids'
+        app_label = 'default'
 
 class LegalEntities(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -51,6 +60,8 @@ class LegalEntities(models.Model):
     class Meta:
         managed = False
         db_table = 'legal_entities'
+        app_label = 'default'
+
 
 
 class Orders(models.Model):
@@ -123,6 +134,7 @@ class Orders(models.Model):
     class Meta:
         managed = False
         db_table = 'orders'
+        app_label = 'default'
 
 
 class Runs(models.Model):
@@ -162,6 +174,8 @@ class Runs(models.Model):
     class Meta:
         managed = False
         db_table = 'runs'
+        app_label = 'default'
+
 
 class Users(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -215,3 +229,4 @@ class Users(models.Model):
     class Meta:
         managed = False
         db_table = 'users'
+        app_label = 'default'

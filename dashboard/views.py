@@ -2,7 +2,7 @@
 
 from django.shortcuts import render
 
-from dashboard.models import Orders, LegalEntities, Bids, Runs, Users
+from dashboard.models import Orders, LegalEntities, Bids, Runs, Users, Comments
 import datetime
 import requests
 import json
@@ -68,8 +68,10 @@ def get_order_output_details(order):
         rate_without_nds = -1
         rate_with_nds = -1
 
-
-
+    try:
+        comment = Comments.objects.using('dashboard').get(order_id=order.id)
+    except Comments.DoesNotExist:
+        comment = None
 
     return [order.id,
             order.customer_legal_entity.organization_name,
@@ -85,7 +87,9 @@ def get_order_output_details(order):
             rate_without_nds,
             rate_with_nds,
             order.distance,
-            order.cargo_weight
+            order.cargo_weight,
+            comment
+
             ]
 
 
@@ -101,6 +105,21 @@ def index(request):
 
 
 def carriers(request, order_id):
+    if request.method == "POST":
+        try:
+            comment = Comments.objects.using('dashboard').get(order_id=order_id)
+            comment.text = request.POST['comment']
+            comment.save(using='dashboard')
+
+        except Comments.DoesNotExist:
+            comment = Comments(order_id=order_id, text=request.POST['comment'])
+            comment.save(using='dashboard')
+    else:
+        try:
+            comment = Comments.objects.using('dashboard').get(order_id=order_id)
+        except Comments.DoesNotExist:
+            comment = Comments(order_id=order_id, text='')
+
     order = Orders.objects.get(id=order_id)
     similar_orders = Orders.objects.filter(sender_region_id=order.sender_region_id,
                                            created_at__gte=datetime.date(2019, 1, 1),
@@ -133,8 +152,10 @@ def carriers(request, order_id):
                                 ])
 
 
+
     return render(request, 'dashboard/carriers.html', {'carriers': sorted(carriers_output, key=itemgetter(1), reverse=True),
-                                                       'order': get_order_output_details(order)})
+                                                       'order': get_order_output_details(order),
+                                                       'comment': comment})
 
 
 def get_manager(order):

@@ -34,6 +34,20 @@
 
 
      <br/>
+
+    <form action="." method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+
+
+    <div class="order-page__summary-actions">
+      <textarea type="text" class="form-control" name="comment" placeholder="Комментарий" aria-label="Comment" aria-describedby="basic-addon1">{{comment.text}}</textarea>
+    </div>
+
+    <div class="order-page__summary-actions">
+      <button  class="btn btn-primary btn-sm" type="submit">Сохранить</button>
+    </div>
+    </form>
+
     {% for carrier in carriers %}
 
     {% endfor %}

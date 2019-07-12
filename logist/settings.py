@@ -76,12 +76,19 @@ WSGI_APPLICATION = 'logist.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'dashboard': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
 
-
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'trucker_prod',
+        'USER': 'cube',
+        'PASSWORD': 'JKl2RrG63Q3Clm37',
+        'HOST': '95.181.205.74',
+        'PORT': '11232',
+    },
 }
 
 

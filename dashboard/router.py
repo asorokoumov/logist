@@ -25,3 +25,12 @@ class DashboardRouter(object):
             return False  # we're not using syncdb on our legacy database
         else:  # but all other models/databases are fine
             return True
+
+    def allow_migrate(self, db, app_label, model_name=None, **hints):
+        """
+        Make sure the auth app only appears in the 'users_db'
+        database.
+        """
+        if app_label == 'dashboard':
+            return db == 'dashboard'
+        return None
