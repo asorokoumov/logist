@@ -155,7 +155,7 @@ def carriers(request, order_id):
 
     return render(request, 'dashboard/carriers.html', {'carriers': sorted(carriers_output, key=itemgetter(1), reverse=True),
                                                        'order': get_order_output_details(order),
-                                                       'comment': comment})
+                                                       'comment': comment, 'description': order.description})
 
 
 def get_manager(order):

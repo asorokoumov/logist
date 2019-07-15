@@ -19,6 +19,7 @@
     <b>Цена клиента</b>:{{order.4}} <br/>
     <b>с НДС</b>:{{order.5}} <br/>
     <b>без НДС</b>:{{order.6}} <br/>
+    <b>Комментарий</b>:{{description}} <br/>
           {% if order.7 == 4 %}
             <span class="badge badge-warning">Ожидание исполнителя</span> <br/>
           {% endif %}
@@ -33,7 +34,7 @@
           {% endif %}
 
 
-     <br/>
+     <br/><br/><br/>
 
     <form action="." method="post" class="needs-validation" novalidate>
         {% csrf_token %}
@@ -51,7 +52,7 @@
     {% for carrier in carriers %}
 
     {% endfor %}
-
+<br/><br/><br/>
 
     <table class="table table-hover  table-sm">
   <thead  class="thead-dark">
