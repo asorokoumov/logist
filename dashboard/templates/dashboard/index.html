@@ -619,6 +619,8 @@
               } );
 
             $('.metrika-click-alert').each(function(el) {
+            date = new Date();
+
                 $(this).on('click', function(e) {
                     e.preventDefault();
 
@@ -635,7 +637,7 @@
                             "user_id": -1,
                             "tags": ["logist"],
                             "name": "in_work",
-                            "happened_at": '2018-10-11 00:00',
+                            "happened_at": date.toISOString().split('T')[0],
                             "data": {"order": e.target.dataset.order.toString()}
                         }]})
                     });
