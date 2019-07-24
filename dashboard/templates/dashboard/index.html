@@ -42,6 +42,9 @@
          <li class="nav-item">
             <a class="nav-link" id="antipin-tab" data-toggle="tab" href="#antipin" role="tab" aria-controls="antipin" aria-selected="false">Антипин</a>
          </li>
+           <li class="nav-item">
+            <a class="nav-link" id="maraktashin-tab" data-toggle="tab" href="#maraktashin" role="tab" aria-controls="maraktashin" aria-selected="false">Маракташин</a>
+         </li>
       </ul>
       <div class="tab-content" id="myTabContent">
          <div class="tab-pane fade show active" id="voitik" role="tabpanel" aria-labelledby="voitik-tab">
@@ -402,7 +405,7 @@
 
 
          </div>
-         <div class="tab-pane fade" id="borzova" role="tabpanel" aria-labelledby="govorov-tab">
+         <div class="tab-pane fade" id="borzova" role="tabpanel" aria-labelledby="borzova-tab">
               <table id="borzova_table" class="display compact" style="width:100%">
                <thead  class="thead-dark">
                              <tr>
@@ -543,6 +546,77 @@
 
 
          </div>
+         <div class="tab-pane fade" id="maraktashin" role="tabpanel" aria-labelledby="maraktashin-tab">
+              <table id="maraktashin_table" class="display compact" style="width:100%">
+               <thead  class="thead-dark">
+                             <tr>
+          <th rowspan="2">Заказ</th>
+                                 <th rowspan="2">В работе</th>
+          <th rowspan="2">Дата вывоза</th>
+          <th rowspan="2">Просрочка</th>
+          <th rowspan="2">Клиент</th>
+          <th rowspan="2">Откуда</th>
+          <th rowspan="2">Куда</th>
+          <th rowspan="2">Расстояние</th>
+          <th rowspan="2">Вес</th>
+                <th colspan="2">Цена</th>
+                <th rowspan="2">Руб/км <br/>(без НДС)</th>
+         <th rowspan="2"><i class="far fa-comment"></i></th>
+            <th rowspan="2"></th>
+
+            </tr>
+    <tr>
+
+      <th scope="col">с НДС</th>
+      <th scope="col">без НДС</th>
+
+    </tr>
+               </thead>
+               <tbody>
+                  {% for order in orders %}
+                  {% if order.8 == "Маракташин" %}
+                  <tr>
+                     <th><a href="https://trucker.group/orders/{{order.0}}">{{order.0}}</a></th>
+                      <th><button class="metrika-click-alert btn btn-outline-primary btn-sm" data-order="{{order.0}}" type="button"  href="#">В работе</button></th>
+                     <th>{{order.9|date:'M d'}}</th>
+                        {% if order.10 < 0 %}
+                              <th><span class="badge badge-success">{{order.10}}</span></th>
+                         {% endif %}
+                        {% if order.10 == 0 %}
+                              <th><span class="badge badge-warning">{{order.10}}</span></th>
+                         {% endif %}
+                        {% if order.10 >= 1 %}
+                              <th><span class="badge badge-danger">{{order.10}}</span></th>
+                         {% endif %}
+
+
+                      <td>{{order.1}}</td>
+                     <td>{{order.2}}</td>
+                     <td>{{order.3}}</td>
+                     <td>{{order.13|floatformat:0}}</td>
+                     <td>{{order.14|floatformat:0}}</td>
+                      <td>{{order.5|floatformat:0|intcomma}}</td>
+                      <td>{{order.6|floatformat:0|intcomma}}</td>
+                      <td>{{order.11|floatformat:0|intcomma}}</td>
+
+                     <td scope="col">
+                        {% if order.15 %}
+                            {% if order.15.text != '' %}
+                         <i class="far fa-comment"  data-toggle="tooltip" data-placement="left" title="{{order.15.text}}"></i>
+                      {% endif %}
+                      {% endif %}
+                     </td>
+                     <td scope="col">
+
+                         <a href="{% url 'carriers' order_id=order.0 %}">Подобрать</a> </td>
+                  </tr>
+                  {% endif %}
+                  {% endfor %}
+               </tbody>
+            </table>
+
+
+         </div>
       </div>
       <!-- Optional JavaScript -->
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -617,7 +691,14 @@
                   },
                   "lengthMenu": [[25, 50, -1], [25, 50, "All"]]
               } );
-
+            $('#maraktashin_table').DataTable( {
+                "createdRow": function( row, data, dataIndex){
+                      if(data[2] ==  "10"){
+                        $(row).addClass('red');
+                      }
+                  },
+                  "lengthMenu": [[25, 50, -1], [25, 50, "All"]]
+              } );
             $('.metrika-click-alert').each(function(el) {
             date = new Date();
 

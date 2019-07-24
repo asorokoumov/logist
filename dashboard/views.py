@@ -95,8 +95,8 @@ def get_order_output_details(order):
 
 # Create your views here.
 def index(request):
-    objects = Orders.objects.filter(cargo_kind__in=['metal', 'other'], created_at__gte=datetime.date(2019, 6, 17),
-                                    status__in=[4, 6])
+    objects = Orders.objects.filter(created_at__gte=datetime.date(2019, 6, 17),
+                                    status__in=[4, 6, 7, 9])
     orders_output = []
     for object in objects:
         orders_output.append(get_order_output_details(object))
@@ -161,33 +161,34 @@ def carriers(request, order_id):
 def get_manager(order):
     manager = 'Unknown'
 
-    if order.customer_legal_entity.id in [3021, 3072, 2980, 470]:
-        manager = 'Войтик'
-    elif order.customer_legal_entity.id in [579, 2798]:
-        manager = 'Судаков'
+    if order.cargo_kind in ['metal', 'other'] and order.status in [4, 6]:
+        if order.customer_legal_entity.id in [3021, 3072, 2980, 470]:
+            manager = 'Войтик'
+        elif order.customer_legal_entity.id in [579, 2798]:
+            manager = 'Судаков'
 
-    elif order.customer_legal_entity.id in [759]:
-        manager = 'Иваева'
+        elif order.customer_legal_entity.id in [759]:
+            manager = 'Иваева'
 
-    elif order.customer_legal_entity.id in [309]:
-        manager = 'Трубицин'
-
-
-    elif order.sender_region_id in [19,17,32,20,41,35,49,75,81,74,76,50,43,77,78,33,55,51,71,66,67,24]:
-        manager = 'Говоров'
-    elif order.sender_region_id in [60,73,48,36,28,30,23,38,14,25,3,45,1,11,72,45]:
-        manager = 'Борзова'
-    elif order.sender_region_id in [37, 56, 29, 70, 59, 44, 34, 64, 65, 79, 46, 69, 62, 52, 54, 39, 63]:
-        manager = 'Войтик'
-    elif order.sender_region_id in [4, 27, 80, 15, 58, 16, 68, 42, 47, 21, 31, 8]:
-        manager = 'Судаков'
-    elif order.sender_region_id in [12, 5, 2, 18, 13, 9, 57, 26, 53]:
-        manager = 'Иваева'
-    elif order.sender_region_id in [166]:
-        manager = 'Трубицин'
+        elif order.customer_legal_entity.id in [309]:
+            manager = 'Трубицин'
 
 
-
+        elif order.sender_region_id in [19,17,32,20,41,35,49,75,81,74,76,50,43,77,78,33,55,51,71,66,67,24]:
+            manager = 'Говоров'
+        elif order.sender_region_id in [60,73,48,36,28,30,23,38,14,25,3,45,1,11,72,45]:
+            manager = 'Борзова'
+        elif order.sender_region_id in [37, 56, 29, 70, 59, 44, 34, 64, 65, 79, 46, 69, 62, 52, 54, 39, 63]:
+            manager = 'Войтик'
+        elif order.sender_region_id in [4, 27, 80, 15, 58, 16, 68, 42, 47, 21, 31, 8]:
+            manager = 'Судаков'
+        elif order.sender_region_id in [12, 5, 2, 18, 13, 9, 57, 26, 53]:
+            manager = 'Иваева'
+        elif order.sender_region_id in [166]:
+            manager = 'Трубицин'
+    elif order.cargo_kind in ['grain', 'stone']:
+        manager = 'Маракташин'
+        print ('....')
 
     return manager
 
