@@ -16,6 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -81,6 +82,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
 
+}
 
 
 
@@ -122,4 +124,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 DATABASE_ROUTERS = ['dashboard.router.DashboardRouter']
-
